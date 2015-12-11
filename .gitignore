@@ -1,6 +1,7 @@
-/asset
-/bin
-/obj
-/src/ru
+asset
+bin
+obj
+src/ru
 src/Box2D
+
 *.as3proj
