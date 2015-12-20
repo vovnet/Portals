@@ -1,41 +1,51 @@
 package game.user {
-	import game.data.LevelingData;
+	import game.data.SkillsData;
 	import game.GameProgress;
 	import ru.antkarlov.anthill.AntG;
+	import ru.antkarlov.anthill.extensions.skills.AntSkills;
+	import sources.SkillManager;
 	import states.GameState;
 	import units.enemies.EnemyBase;
 	
 	/**
 	 * Отвечает за обработку кликов игрока по врагам и по стражу.
-	 * ...
+	 * 
 	 * @author Vladimir
 	 */
 	public class UserClicker {
 		
 		public var damage:int = 5;
-		public var maxDelay:Number = 1;
 		
-		private var currentDelay:Number = 0;
+		/**
+		 * Обязательная задержка между кликами игрока.
+		 */
+		public var clickDelay:Number = 1;
+		
+		/**
+		 * Сколько времени прошло с прошлого клика.
+		 */
+		private var prevClickDelay:Number = 0;
 		
 		public function UserClicker() {
 		
 		}
 		
 		public function update():void {
-			damage = LevelingData.guardsAttackPowerLeveling[GameProgress.getInstance().leveling[0]].value;
+			damage = AntSkills.getCurrentValue(SkillManager.USER_ATTACK_POWER);
+			clickDelay = AntSkills.getCurrentValue(SkillManager.USER_ATTACK_SPEED);
 			var gameState:GameState = GameState.instance;
 			if (gameState.isPause) {
 				return;
 			}
-			currentDelay += AntG.elapsed;
+			prevClickDelay += AntG.elapsed;
 			
-			if (currentDelay >= maxDelay && AntG.mouse.isPressed()) {
+			if (prevClickDelay >= clickDelay && AntG.mouse.isPressed()) {
 				var en:EnemyBase;
 				for (var i:int = 0; i < gameState.enemies.length; i++) {
 					en = gameState.enemies[i];
 					if (en.alive && en.health > 0 && en.hitTest(AntG.mouse.x, AntG.mouse.y)) {
 						en.hammer(damage);
-						currentDelay = 0;
+						prevClickDelay = 0;
 						return;
 					}
 				}

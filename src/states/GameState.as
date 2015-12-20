@@ -7,6 +7,7 @@ package states {
 	import game.respawn.EnemyRespawner;
 	import game.user.UserClicker;
 	import gui.buttons.GuiPanels;
+	import gui.popups.LevelingPop;
 	import gui.popups.PausePop;
 	import gui.textFields.BonusTextField;
 	import gui.textFields.GameLife;
@@ -55,6 +56,9 @@ package states {
 		// черная подложка для паузы
 		private var backPause:AntActor = new AntActor();
 		
+		// попап для прокачек
+		private var lvlPop:LevelingPop = new LevelingPop();
+		
 		// ui
 		private var outsLabel:GameLife;
 		private var coins:CoinsController;
@@ -73,33 +77,7 @@ package states {
 			super();
 			
 			instance = this;
-			
-			add(gameLayer);
-			add(uiLayer);
-			add(popLayer);
-			
-			uiLayer.add(new GuiPanels());
-			
-			coins = new CoinsController();
-			uiLayer.add(coins);
-			
-			outsLabel = new GameLife();
-			outsLabel.reset(700, 5);
-			uiLayer.add(outsLabel);
-			
-			backPause.addAnimationFromCache("backing");
-			backPause.visible = false;
-			popLayer.add(backPause);
-			
-			gameLayer.add(background);
-			
-			portalWorld.x = -20;
-			portalWorld.y = 130;
-			gameLayer.add(portalWorld);
-			
-			guardHero.reset(190, 300);
-			guardHero.init();
-			gameLayer.add(guardHero);
+			initLayers();
 			
 			if (GameProgress.getInstance().isOpenMag) {
 				magHero.reset(320, 240);
@@ -112,6 +90,9 @@ package states {
 			}
 		}
 		
+		/**
+		 * Игровой цикл
+		 */
 		override public function update():void {
 			super.update();
 			
@@ -164,6 +145,9 @@ package states {
 			popLayer.add(p);
 		}
 		
+		/**
+		 * Состояние выйгрыша уровня
+		 */
 		private function winningState():void {
 			if (!isPause) {
 				winElapsed -= AntG.elapsed;
@@ -178,6 +162,42 @@ package states {
 				prog.save();
 				prog.engine.switchState(new LevelsState);
 			}
+		}
+		
+		/**
+		 * Инициализация слоев в игре
+		 */
+		private function initLayers():void {
+			add(gameLayer);
+			add(uiLayer);
+			add(popLayer);
+			
+			uiLayer.add(new GuiPanels());
+			
+			coins = new CoinsController();
+			uiLayer.add(coins);
+			
+			outsLabel = new GameLife();
+			outsLabel.reset(700, 5);
+			uiLayer.add(outsLabel);
+			
+			backPause.addAnimationFromCache("backing");
+			backPause.visible = false;
+			popLayer.add(backPause);
+			
+			gameLayer.add(background);
+			
+			portalWorld.x = -20;
+			portalWorld.y = 130;
+			gameLayer.add(portalWorld);
+			
+			guardHero.reset(190, 300);
+			guardHero.init();
+			gameLayer.add(guardHero);
+			
+			lvlPop.reset(10, 50);
+			popLayer.add(lvlPop);
+			//lvlPop.visible = false;
 		}
 		
 		/**
@@ -259,8 +279,6 @@ package states {
 			ray.reset(posX, posY);
 			gameLayer.add(ray);
 		}
-		
-		
 	
 	}
 

@@ -1,8 +1,11 @@
 package gui.buttons {
-	import game.data.LevelingData;
+	import game.data.SkillsData;
 	import game.GameProgress;
 	import ru.antkarlov.anthill.AntActor;
 	import ru.antkarlov.anthill.AntButton;
+	import ru.antkarlov.anthill.extensions.skills.AntSkillData;
+	import ru.antkarlov.anthill.extensions.skills.AntSkills;
+	import states.GameState;
 	
 	/**
 	 * Кнопка с восклицательным знаком, которая отображается в игре.
@@ -23,8 +26,10 @@ package gui.buttons {
 			
 			attentionSign = new AntActor();
 			attentionSign.addAnimationFromCache("lit_sign");
+			attentionSign.scaleX = 0.8;
+			attentionSign.scaleY = 0.8;
 			attentionSign.play();
-			attentionSign.reset(40, -30);
+			attentionSign.reset(44, -8, 30);
 			add(attentionSign);
 			attentionSign.visible = false;
 		}
@@ -32,15 +37,18 @@ package gui.buttons {
 		override public function update():void {
 			super.update();
 			attentionSign.visible = false;
-			// проверяем можно ли что-нибудь прокачать, и показываем восклицательный знак
-			if (LevelingData.guardsAttackPowerLeveling[GameProgress.getInstance().leveling[0]].price <= GameProgress.getInstance().money) {
-				attentionSign.visible = true;
-			}
 			
+			var skillsList:Vector.<AntSkillData> = AntSkills.getSkillsList();
+			for each(var skill:AntSkillData in skillsList) {
+				if (GameProgress.getInstance().money >= skill.getSkillPrice()) {
+					attentionSign.visible = true;
+					break;
+				}
+			}
 		}
 		
 		private function onClickLeveling(btn:AntButton):void {
-		
+			GameState.instance.setPause(true);
 		}
 	
 	}

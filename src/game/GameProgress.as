@@ -16,6 +16,8 @@ package game {
 		public static const TWO_STARS_LEVEL:int = 4;
 		public static const THREE_STAR_LEVEL:int = 5;
 		
+		public static var savesName:String = "SpaceGuard";
+		
 		public var engine:Anthill;
 		
 		public var levelsProgress:Array = [];
@@ -23,11 +25,10 @@ package game {
 		public var money:int;
 		public var isOpenMag:Boolean;
 		public var isOpenSniper:Boolean;
-		public var leveling:Array = [];
 		
 		private var isExistSaves:Boolean = false;
 		private var cookie:AntCookie = new AntCookie();
-		private var savesName:String = "SpaceGuard";
+		
 		
 		private static var instance:GameProgress;
 		
@@ -61,27 +62,6 @@ package game {
 			isOpenMag = false;
 			isOpenSniper = false;
 			
-			leveling = new Array();
-			leveling[0] = 0; // user attack power
-			leveling[1] = 0; // user heal power
-			leveling[2] = 0; // user speed attack
-			leveling[3] = 0; // user speed heal
-			
-			leveling[4] = 0; // guard health
-			leveling[5] = 0; // guard speed attack
-			leveling[6] = 0; // guard attack power
-			leveling[7] = 0; // guard super attack power
-			leveling[8] = 0; // guard super attack speed
-			
-			leveling[9] = 0; // mag speed heal
-			leveling[10] = 0; // mag heal power
-			leveling[11] = 0; // mag super attack power
-			leveling[12] = 0; // mag super attack speed
-			
-			leveling[13] = 0; // sniper attack speed
-			leveling[14] = 0; // sniper attack power
-			leveling[15] = 0; // sniper super attack power
-			leveling[16] = 0; // sniper super attack speed
 		}
 		
 		/**
@@ -106,7 +86,6 @@ package game {
 			cookie.write("levels", levelsProgress);
 			cookie.write("isOpenMag", isOpenMag);
 			cookie.write("isOpenSniper", isOpenSniper);
-			cookie.write("leveling", leveling);
 		}
 		
 		/**
@@ -123,7 +102,6 @@ package game {
 			money = cookie.read("money") as int;
 			isOpenMag = cookie.read("isOpenMag") as Boolean;
 			isOpenSniper = cookie.read("isOpenSniper") as Boolean;
-			leveling = cookie.read("leveling") as Array;
 			trace(cookie.toString());
 		}
 		

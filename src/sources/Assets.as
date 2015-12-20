@@ -21,6 +21,9 @@ package sources {
 		[Embed(source = "../../asset/fonts/foo.ttf", fontFamily = "foo", embedAsCFF = "false")]
 		protected var junk1:String;
 		
+		[Embed(source = "../../asset/fonts/casper.ttf",  fontFamily = "casper", embedAsCFF = "false")]
+		protected var junk2:String;
+		
 		[Embed(source = "../../asset/background.jpg")]
 		private static var BackEmbed:Class;
 		
@@ -120,13 +123,18 @@ package sources {
 			loader.addClip(next_mc, "btn_back_to_play");
 			loader.addClip(refresh_mc, "btn_refresh");
 			
-			// test graphics
-			loader.addClip(button_to_test, "go_leveling_button");
-			loader.addClip(pre_button_test, "pre_button");
-			loader.addClip(heart_icon_test, "heart_icon");
-			loader.addClip(attack_icon_test, "attack_icon");
-			loader.addClip(button_price_test, "price_button");
-			loader.addClip(lit_test, "lit_sign");
+			// upgrades
+			loader.addClip(upgrade_mc, "go_leveling_button");
+			loader.addClip(Plashka_mc, "pre_button");
+			loader.addClip(upgrade_active_mc, "lit_sign");
+			loader.addClip(button_mc, "price_button");
+			
+			
+			// upgrades icon
+			loader.addClip(heart_mc, "heart_icon");
+			loader.addClip(blades_mc, "attack_icon");
+			loader.addClip(clock_mc, "clock_icon");
+			
 			
 			// loading
 			loader.start();

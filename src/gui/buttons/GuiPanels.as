@@ -25,10 +25,6 @@ package gui.buttons {
 			levelingBtn.reset(680, 540);
 			add(levelingBtn);
 			
-			// test
-			var test:LevelingButton = new LevelingButton(0, "attack_icon");
-			test.reset(100, 500);
-			add(test);
 		}
 		
 		
