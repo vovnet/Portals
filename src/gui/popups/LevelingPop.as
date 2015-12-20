@@ -1,5 +1,4 @@
 package gui.popups {
-	import game.data.SkillsData;
 	import gui.buttons.LevelingButton;
 	import ru.antkarlov.anthill.AntActor;
 	import sources.SkillManager;

@@ -1,6 +1,4 @@
 package gui.buttons {
-	import game.data.SkillsData;
-	import game.data.SimpleLevelData;
 	import game.GameProgress;
 	import ru.antkarlov.anthill.AntActor;
 	import ru.antkarlov.anthill.AntButton;

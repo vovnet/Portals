@@ -4,7 +4,6 @@ package {
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	import game.data.SkillsData;
 	import game.GameProgress;
 	import game_prototype.PrototypeState;
 	import ru.antkarlov.anthill.AntAssetLoader;
@@ -44,7 +43,6 @@ package {
 		
 		private function onCompleteRasterize(loader:AntAssetLoader):void {
 			GameProgress.getInstance().load(); // загружаем сохранения
-			SkillsData.init(); // инициализируем данные об прокачке
 			
 			SkillManager.init();
 			

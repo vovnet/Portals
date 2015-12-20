@@ -1,5 +1,4 @@
 package game.user {
-	import game.data.SkillsData;
 	import game.GameProgress;
 	import ru.antkarlov.anthill.AntG;
 	import ru.antkarlov.anthill.extensions.skills.AntSkills;
